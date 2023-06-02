@@ -1,0 +1,66 @@
+1. buatlah database dengan nama "myshop"
+=> Query:
+CREATE DATABASE myshop;
+
+2. Buatlah tabel – tabel baru di dalam database myshop
+=> Query
+a. tabel Users
+   CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255),
+    email VARCHAR(255),
+    password VARCHAR(255)
+   );
+b. tabel Categories
+   CREATE TABLE categories (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255)
+   );
+c. tabel Items
+   CREATE TABLE items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255),
+    description VARCHAR(255),
+    price INT,
+    stock INT,
+    category_id INT,
+    FOREIGN KEY (category_id) REFERENCES categories(id)
+   );
+
+3. Menambahkan data pada tabel
+=>Query
+a. tabel Users
+   INSERT INTO users (name, email, password)
+   VALUES ('John Doe', 'john@doe.com', 'password123'),
+          ('Jane Doe', 'jane@doe.com', 'pass456');
+b. tabel Categories
+   INSERT INTO categories (name)
+   VALUES ('gadget'),
+          ('cloth'),
+          ('men'),
+          ('women'),
+          ('branded');
+c. tabel Items
+   INSERT INTO items (name, description, price, stock, category_id)
+   VALUES ('Sumsang b50', 'hape keren dari merek Sumsang', 1000000, 10, 1),
+          ('Uniklooh', 'baju keren dari brand ternama', 500000, 5, 2),
+          ('IMHO Watch', 'jam tangan anak yang jujur banget', 250000, 3, 5);
+
+4. Mengambil data dari database
+=> Query
+a. Mengambil data dari Users
+   SELECT id, name, email FROM users;
+b. Mengambil data Items
+   - harga di atas 1000000 (satu juta). 
+     SELECT * FROM items WHERE price > 1000000;
+   - memiliki nama (name) serupa atau mirip (like) dengan kata kunci "uniklo"
+     SELECT * FROM items WHERE name LIKE '%uniklo%';
+c. Menampilkan data items join dengan kategori
+   SELECT items.name, items.description, categories.name AS category_name 
+   FROM items JOIN categories ON items.category_id = categories.id;
+
+5. Mengubah Data dari Database
+=> Query
+   UPDATE items
+   SET price = 2500000
+   WHERE name = 'Sumsang b50';
